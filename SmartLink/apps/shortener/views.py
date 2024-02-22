@@ -1,5 +1,18 @@
+from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from .serializers import SmartUrlSerializer
+from django.shortcuts import redirect
+from .models import SmartUrl
+
+
+class SmartUrlRedirect(APIView):
+    def get(self, request, *args, **kwargs):
+        token = kwargs.get('token', None)
+        print(token)
+        if token:
+            url = SmartUrl.objects.get(short_url__exact=token)
+            print(url.full_url)
+            return redirect(url.full_url)
 
 
 class SmartUrlCreateView(CreateAPIView):
