@@ -1,7 +1,6 @@
 from hashlib import sha1
 from rest_framework import serializers
 from .models import SmartUrl
-from configs.settings import SITE_URL
 
 
 class SmartUrlSerializer(serializers.ModelSerializer):
@@ -16,7 +15,7 @@ class SmartUrlSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         obj, _ = SmartUrl.objects.get_or_create(
             full_url=validated_data['full_url'],
-            defaults={'short_url': SITE_URL + sha1(validated_data['full_url'].encode("utf-8")).hexdigest()}
+            defaults={'short_url': sha1(validated_data['full_url'].encode("utf-8")).hexdigest()}
         )
 
         return obj
