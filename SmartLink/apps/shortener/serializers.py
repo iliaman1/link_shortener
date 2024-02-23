@@ -1,5 +1,8 @@
 from hashlib import sha1
+
 from rest_framework import serializers
+
+from configs.settings import SITE_URL
 from .models import SmartUrl
 
 
@@ -19,3 +22,8 @@ class SmartUrlSerializer(serializers.ModelSerializer):
         )
 
         return obj
+
+    def to_representation(self, instance):
+        ans = super().to_representation(instance)
+        ans['short_url'] = SITE_URL + instance.short_url
+        return ans
