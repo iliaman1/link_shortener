@@ -1,8 +1,8 @@
 from django.urls import path
 
-from apps.shortener.views import SmartUrlCreateView, SmartUrlRedirect
+from apps.shortener.views import SmartUrlRedirectCreateView
 
 urlpatterns = [
-    path('<str:token>', SmartUrlRedirect.as_view(), name='smarturl-redirect'),
-    path('', SmartUrlCreateView.as_view(), name='smarturl-create')
+    path('', SmartUrlRedirectCreateView.as_view(), name='smarturl-create'),
+    path('<str:token>', SmartUrlRedirectCreateView.as_view(), name='smarturl-redirect')
 ]
