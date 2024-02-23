@@ -1,8 +1,9 @@
+from django.shortcuts import redirect
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.mixins import CreateModelMixin
-from .serializers import SmartUrlSerializer
-from django.shortcuts import redirect
+
 from .models import SmartUrl
+from .serializers import SmartUrlSerializer
 
 
 class SmartUrlRedirectCreateView(GenericAPIView, CreateModelMixin):
