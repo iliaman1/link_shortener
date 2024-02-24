@@ -22,5 +22,19 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
 
+  redis:
+    image: redis:7-alpine
+    hostname: $${REDIS_HOST}
+    container_name: shortener_cache_redis
+    environment:
+      - REDIS_HOST=redis
+    healthcheck:
+      test: [ "CMD", "redis-cli","ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    ports:
+      - '8002:6379'
+
 volumes:
   database:
